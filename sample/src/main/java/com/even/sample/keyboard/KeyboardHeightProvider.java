@@ -18,16 +18,17 @@
 package com.even.sample.keyboard;
 
 import android.app.Activity;
-import android.content.res.Configuration;
 import android.graphics.Point;
 import android.graphics.Rect;
 import android.graphics.drawable.ColorDrawable;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewTreeObserver.OnGlobalLayoutListener;
 import android.view.WindowManager.LayoutParams;
 import android.widget.PopupWindow;
+
 import com.even.sample.R;
 
 /**
@@ -36,25 +37,29 @@ import com.even.sample.R;
  */
 public class KeyboardHeightProvider extends PopupWindow {
 
-    /** The tag for logging purposes */
-    private final static String TAG = "sample_KeyboardHeightProvider";
+    /**
+     * The tag for logging purposes
+     */
+    private final static String TAG = "KeyboardHeightProvider";
 
-    /** The keyboard height observer */
+    /**
+     * The keyboard height observer
+     */
     private KeyboardHeightObserver observer;
 
-    /** The cached landscape height of the keyboard */
-    private int keyboardLandscapeHeight;
-
-    /** The cached portrait height of the keyboard */
-    private int keyboardPortraitHeight;
-
-    /** The view that is used to calculate the keyboard height */
+    /**
+     * The view that is used to calculate the keyboard height
+     */
     private View popupView;
 
-    /** The parent view */
+    /**
+     * The parent view
+     */
     private View parentView;
 
-    /** The root activity that uses this KeyboardHeightProvider */
+    /**
+     * The root activity that uses this KeyboardHeightProvider
+     */
     private Activity activity;
 
     /**
@@ -66,13 +71,14 @@ public class KeyboardHeightProvider extends PopupWindow {
         super(activity);
         this.activity = activity;
 
-        LayoutInflater inflator =
-            (LayoutInflater) activity.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
-        this.popupView = inflator.inflate(R.layout.popupwindow, null, false);
+        LayoutInflater layoutInflater = activity.getLayoutInflater();
+
+        this.popupView = layoutInflater.inflate(R.layout.popupwindow, null, false);
+
         setContentView(popupView);
 
         setSoftInputMode(
-            LayoutParams.SOFT_INPUT_ADJUST_RESIZE | LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+                LayoutParams.SOFT_INPUT_ADJUST_RESIZE | LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
         setInputMethodMode(PopupWindow.INPUT_METHOD_NEEDED);
 
         parentView = activity.findViewById(android.R.id.content);
@@ -82,7 +88,8 @@ public class KeyboardHeightProvider extends PopupWindow {
 
         popupView.getViewTreeObserver().addOnGlobalLayoutListener(new OnGlobalLayoutListener() {
 
-            @Override public void onGlobalLayout() {
+            @Override
+            public void onGlobalLayout() {
                 if (popupView != null) {
                     handleOnGlobalLayout();
                 }
@@ -96,7 +103,6 @@ public class KeyboardHeightProvider extends PopupWindow {
      * of the Activity.
      */
     public void start() {
-
         if (!isShowing() && parentView.getWindowToken() != null) {
             setBackgroundDrawable(new ColorDrawable(0));
             showAtLocation(parentView, Gravity.NO_GRAVITY, 0, 0);
@@ -151,15 +157,9 @@ public class KeyboardHeightProvider extends PopupWindow {
         int orientation = getScreenOrientation();
         int keyboardHeight = screenSize.y - rect.bottom;
 
-        if (keyboardHeight == 0) {
-            notifyKeyboardHeightChanged(0, orientation);
-        } else if (orientation == Configuration.ORIENTATION_PORTRAIT) {
-            this.keyboardPortraitHeight = keyboardHeight;
-            notifyKeyboardHeightChanged(keyboardPortraitHeight, orientation);
-        } else {
-            this.keyboardLandscapeHeight = keyboardHeight;
-            notifyKeyboardHeightChanged(keyboardLandscapeHeight, orientation);
-        }
+        Log.i(TAG, "KeyBoardHeight = " + keyboardHeight);
+
+        notifyKeyboardHeightChanged(keyboardHeight, orientation);
     }
 
     /**

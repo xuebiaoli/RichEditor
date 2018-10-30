@@ -1,7 +1,9 @@
 package com.even.mricheditor;
 
 import android.text.TextUtils;
+
 import com.google.gson.annotations.SerializedName;
+
 import java.util.List;
 
 /**
@@ -29,21 +31,36 @@ public class FontStyle {
      * range : {"sc":{},"so":4,"ec":{},"eo":4}
      */
 
-    @SerializedName("font-family") private String fontFamily;
-    @SerializedName("font-size") private int fontSize;
-    @SerializedName("font-backColor") private String fontBackColor;
-    @SerializedName("font-foreColor") private String fontForeColor;
-    @SerializedName("text-align") private String textAlign;
-    @SerializedName("list-style-type") private String listStyleType;
-    @SerializedName("line-height") private String lineHeight;
-    @SerializedName("font-bold") private String fontBold;
-    @SerializedName("font-italic") private String fontItalic;
-    @SerializedName("font-underline") private String fontUnderline;
-    @SerializedName("font-subscript") private String fontSubscript;
-    @SerializedName("font-superscript") private String fontSuperscript;
-    @SerializedName("font-strikethrough") private String fontStrikethrough;
-    @SerializedName("font-block") private String fontBlock;
-    @SerializedName("list-style") private String listStyle;
+    @SerializedName("font-family")
+    private String fontFamily;
+    @SerializedName("font-size")
+    private int fontSize;
+    @SerializedName("font-backColor")
+    private String fontBackColor;
+    @SerializedName("font-foreColor")
+    private String fontForeColor;
+    @SerializedName("text-align")
+    private String textAlign;
+    @SerializedName("list-style-type")
+    private String listStyleType;
+    @SerializedName("line-height")
+    private String lineHeight;
+    @SerializedName("font-bold")
+    private String fontBold;
+    @SerializedName("font-italic")
+    private String fontItalic;
+    @SerializedName("font-underline")
+    private String fontUnderline;
+    @SerializedName("font-subscript")
+    private String fontSubscript;
+    @SerializedName("font-superscript")
+    private String fontSuperscript;
+    @SerializedName("font-strikethrough")
+    private String fontStrikethrough;
+    @SerializedName("font-block")
+    private String fontBlock;
+    @SerializedName("list-style")
+    private String listStyle;
     private boolean anchor;
     private RangeBean range;
     private List<AncestorsBean> ancestors;

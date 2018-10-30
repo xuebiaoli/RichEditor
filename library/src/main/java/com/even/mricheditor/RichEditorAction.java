@@ -1,7 +1,5 @@
 package com.even.mricheditor;
 
-import android.os.Build;
-import android.support.annotation.NonNull;
 import android.webkit.WebView;
 
 /**
@@ -14,6 +12,86 @@ public class RichEditorAction {
 
     public RichEditorAction(WebView webView) {
         this.mWebView = webView;
+    }
+
+    public void execCommand(ActionType mActionType) {
+        switch (mActionType) {
+            case BOLD:
+                bold();
+                break;
+            case ITALIC:
+                italic();
+                break;
+            case UNDERLINE:
+                underline();
+                break;
+            case SUBSCRIPT:
+                subscript();
+                break;
+            case SUPERSCRIPT:
+                superscript();
+                break;
+            case STRIKETHROUGH:
+                strikethrough();
+                break;
+            case NORMAL:
+                formatPara();
+                break;
+            case H1:
+                formatH1();
+                break;
+            case H2:
+                formatH2();
+                break;
+            case H3:
+                formatH3();
+                break;
+            case H4:
+                formatH4();
+                break;
+            case H5:
+                formatH5();
+                break;
+            case H6:
+                formatH6();
+                break;
+            case JUSTIFY_LEFT:
+                justifyLeft();
+                break;
+            case JUSTIFY_CENTER:
+                justifyCenter();
+                break;
+            case JUSTIFY_RIGHT:
+                justifyRight();
+                break;
+            case JUSTIFY_FULL:
+                justifyFull();
+                break;
+            case ORDERED:
+                insertOrderedList();
+                break;
+            case UNORDERED:
+                insertUnorderedList();
+                break;
+            case INDENT:
+                indent();
+                break;
+            case OUTDENT:
+                outdent();
+                break;
+            case LINE:
+                insertHorizontalRule();
+                break;
+            case BLOCK_QUOTE:
+                formatBlockquote();
+                break;
+            case BLOCK_CODE:
+                formatBlockCode();
+                break;
+            case CODE_VIEW:
+                codeView();
+                break;
+        }
     }
 
     public void undo() {
@@ -163,6 +241,9 @@ public class RichEditorAction {
         load("javascript:unlink()");
     }
 
+    /**
+     * 查看源码
+     */
     public void codeView() {
         load("javascript:codeView()");
     }
@@ -187,17 +268,15 @@ public class RichEditorAction {
         load("javascript:pasteHTML('" + html + "')");
     }
 
-    public void refreshHtml(@NonNull RichEditorCallback callback,
-        @NonNull RichEditorCallback.OnGetHtmlListener onGetHtmlListener) {
-        callback.setOnGetHtmlListener(onGetHtmlListener);
-        load("javascript:refreshHTML()");
+    /**
+     * 获取 html 代码
+     * 获取到源码
+     */
+    public void code() {
+        load("javascript:code()");
     }
 
     private void load(String trigger) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            this.mWebView.evaluateJavascript(trigger, null);
-        } else {
-            this.mWebView.loadUrl(trigger);
-        }
+        this.mWebView.evaluateJavascript(trigger, null);
     }
 }

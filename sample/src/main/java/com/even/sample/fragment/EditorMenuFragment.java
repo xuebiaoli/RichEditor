@@ -1,6 +1,7 @@
 package com.even.sample.fragment;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -10,13 +11,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
 import com.even.mricheditor.ActionType;
 import com.even.sample.R;
 import com.even.sample.interfaces.OnActionPerformListener;
 import com.even.sample.widget.ColorPaletteView;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -29,11 +33,16 @@ import java.util.regex.Pattern;
 
 public class EditorMenuFragment extends Fragment {
     private View rootView;
-    @BindView(R.id.tv_font_size) TextView tvFontSize;
-    @BindView(R.id.tv_font_name) TextView tvFontName;
-    @BindView(R.id.tv_font_spacing) TextView tvFontSpacing;
-    @BindView(R.id.cpv_font_text_color) ColorPaletteView cpvFontTextColor;
-    @BindView(R.id.cpv_highlight_color) ColorPaletteView cpvHighlightColor;
+    @BindView(R.id.tv_font_size)
+    TextView tvFontSize;
+    @BindView(R.id.tv_font_name)
+    TextView tvFontName;
+    @BindView(R.id.tv_font_spacing)
+    TextView tvFontSpacing;
+    @BindView(R.id.cpv_font_text_color)
+    ColorPaletteView cpvFontTextColor;
+    @BindView(R.id.cpv_highlight_color)
+    ColorPaletteView cpvHighlightColor;
 
     private OnActionPerformListener mActionClickListener;
 
@@ -70,9 +79,10 @@ public class EditorMenuFragment extends Fragment {
         }
     };
 
-    @Nullable @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
-        @Nullable Bundle savedInstanceState) {
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_editor_menu, null);
         ButterKnife.bind(this, rootView);
         initView();
@@ -81,7 +91,8 @@ public class EditorMenuFragment extends Fragment {
 
     private void initView() {
         cpvFontTextColor.setOnColorChangeListener(new ColorPaletteView.OnColorChangeListener() {
-            @Override public void onColorChange(String color) {
+            @Override
+            public void onColorChange(String color) {
                 if (mActionClickListener != null) {
                     mActionClickListener.onActionPerform(ActionType.FORE_COLOR, color);
                 }
@@ -89,7 +100,8 @@ public class EditorMenuFragment extends Fragment {
         });
 
         cpvHighlightColor.setOnColorChangeListener(new ColorPaletteView.OnColorChangeListener() {
-            @Override public void onColorChange(String color) {
+            @Override
+            public void onColorChange(String color) {
                 if (mActionClickListener != null) {
                     mActionClickListener.onActionPerform(ActionType.BACK_COLOR, color);
                 }
@@ -97,28 +109,32 @@ public class EditorMenuFragment extends Fragment {
         });
     }
 
-    @OnClick(R.id.ll_font_size) void onClickFontSize() {
+    @OnClick(R.id.ll_font_size)
+    void onClickFontSize() {
         openFontSettingFragment(FontSettingFragment.TYPE_SIZE);
     }
 
-    @OnClick(R.id.ll_line_height) void onClickLineHeight() {
+    @OnClick(R.id.ll_line_height)
+    void onClickLineHeight() {
         openFontSettingFragment(FontSettingFragment.TYPE_LINE_HGEIGHT);
     }
 
-    @OnClick(R.id.tv_font_name) void onClickFontFamily() {
+    @OnClick(R.id.tv_font_name)
+    void onClickFontFamily() {
         openFontSettingFragment(FontSettingFragment.TYPE_FONT_FAMILY);
     }
 
     @OnClick({
-        R.id.iv_action_bold, R.id.iv_action_italic, R.id.iv_action_underline,
-        R.id.iv_action_strikethrough, R.id.iv_action_justify_left, R.id.iv_action_justify_center,
-        R.id.iv_action_justify_right, R.id.iv_action_justify_full, R.id.iv_action_subscript,
-        R.id.iv_action_superscript, R.id.iv_action_insert_numbers, R.id.iv_action_insert_bullets,
-        R.id.iv_action_indent, R.id.iv_action_outdent, R.id.iv_action_code_view,
-        R.id.iv_action_blockquote, R.id.iv_action_code_block, R.id.ll_normal, R.id.ll_h1,
-        R.id.ll_h2, R.id.ll_h3, R.id.ll_h4, R.id.ll_h5, R.id.ll_h6, R.id.iv_action_insert_image,
-        R.id.iv_action_insert_link, R.id.iv_action_table, R.id.iv_action_line
-    }) void onClickAction(View view) {
+            R.id.iv_action_bold, R.id.iv_action_italic, R.id.iv_action_underline,
+            R.id.iv_action_strikethrough, R.id.iv_action_justify_left, R.id.iv_action_justify_center,
+            R.id.iv_action_justify_right, R.id.iv_action_justify_full, R.id.iv_action_subscript,
+            R.id.iv_action_superscript, R.id.iv_action_insert_numbers, R.id.iv_action_insert_bullets,
+            R.id.iv_action_indent, R.id.iv_action_outdent, R.id.iv_action_code_view,
+            R.id.iv_action_blockquote, R.id.iv_action_code_block, R.id.ll_normal, R.id.ll_h1,
+            R.id.ll_h2, R.id.ll_h3, R.id.ll_h4, R.id.ll_h5, R.id.ll_h6, R.id.iv_action_insert_image,
+            R.id.iv_action_insert_link, R.id.iv_action_table, R.id.iv_action_line
+    })
+    void onClickAction(View view) {
         if (mActionClickListener == null) {
             return;
         }
@@ -135,7 +151,8 @@ public class EditorMenuFragment extends Fragment {
         fontSettingFragment.setArguments(bundle);
 
         fontSettingFragment.setOnResultListener(new FontSettingFragment.OnResultListener() {
-            @Override public void onResult(String result) {
+            @Override
+            public void onResult(String result) {
                 if (mActionClickListener != null) {
                     switch (type) {
                         case FontSettingFragment.TYPE_SIZE:
@@ -159,14 +176,15 @@ public class EditorMenuFragment extends Fragment {
 
         FragmentManager fm = getFragmentManager();
         fm.beginTransaction()
-            .add(R.id.fl_action, fontSettingFragment, FontSettingFragment.class.getName())
-            .hide(EditorMenuFragment.this)
-            .commit();
+                .add(R.id.fl_action, fontSettingFragment, FontSettingFragment.class.getName())
+                .hide(EditorMenuFragment.this)
+                .commit();
     }
 
     public void updateActionStates(final ActionType type, final boolean isActive) {
         rootView.post(new Runnable() {
-            @Override public void run() {
+            @Override
+            public void run() {
                 View view = null;
                 for (Map.Entry<Integer, ActionType> e : mViewTypeMap.entrySet()) {
                     Integer key = e.getKey();
@@ -196,10 +214,10 @@ public class EditorMenuFragment extends Fragment {
                     case UNORDERED:
                         if (isActive) {
                             ((ImageView) view).setColorFilter(
-                                ContextCompat.getColor(getContext(), R.color.colorAccent));
+                                    ContextCompat.getColor(getContext(), R.color.colorAccent));
                         } else {
                             ((ImageView) view).setColorFilter(
-                                ContextCompat.getColor(getContext(), R.color.tintColor));
+                                    ContextCompat.getColor(getContext(), R.color.tintColor));
                         }
                         break;
                     case NORMAL:
@@ -269,7 +287,8 @@ public class EditorMenuFragment extends Fragment {
 
     private void updateFontFamilyStates(final String font) {
         rootView.post(new Runnable() {
-            @Override public void run() {
+            @Override
+            public void run() {
                 tvFontName.setText(font);
             }
         });
@@ -277,7 +296,8 @@ public class EditorMenuFragment extends Fragment {
 
     private void updateFontStates(final ActionType type, final double value) {
         rootView.post(new Runnable() {
-            @Override public void run() {
+            @Override
+            public void run() {
                 switch (type) {
                     case SIZE:
                         tvFontSize.setText(String.valueOf((int) value));
@@ -294,7 +314,8 @@ public class EditorMenuFragment extends Fragment {
 
     private void updateFontColorStates(final ActionType type, final String color) {
         rootView.post(new Runnable() {
-            @Override public void run() {
+            @Override
+            public void run() {
                 String selectedColor = rgbToHex(color);
                 if (selectedColor != null) {
                     if (type == ActionType.FORE_COLOR) {
@@ -312,7 +333,7 @@ public class EditorMenuFragment extends Fragment {
         Matcher m = c.matcher(rgb);
         if (m.matches()) {
             return String.format("#%02x%02x%02x", Integer.valueOf(m.group(1)),
-                Integer.valueOf(m.group(2)), Integer.valueOf(m.group(3)));
+                    Integer.valueOf(m.group(2)), Integer.valueOf(m.group(3)));
         }
         return null;
     }

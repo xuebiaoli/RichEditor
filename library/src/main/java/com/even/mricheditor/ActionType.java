@@ -1,8 +1,6 @@
 package com.even.mricheditor;
 
-import android.text.TextUtils;
-import java.util.HashMap;
-import java.util.Map;
+import android.util.SparseArray;
 
 /**
  * Action Type
@@ -34,6 +32,7 @@ public enum ActionType {
 
     BLOCK_QUOTE(31), BLOCK_CODE(32),
 
+    // 查看源码
     CODE_VIEW(33);
 
     private int value;
@@ -46,7 +45,7 @@ public enum ActionType {
         return this.value;
     }
 
-    private static final Map<Integer, ActionType> actionTypeMap = new HashMap<>();
+    private static final SparseArray<ActionType> actionTypeMap = new SparseArray<>();
 
     static {
         for (ActionType actionType : values()) {

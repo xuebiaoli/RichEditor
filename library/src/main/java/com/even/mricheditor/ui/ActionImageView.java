@@ -8,7 +8,6 @@ import android.support.v7.widget.AppCompatImageView;
 import android.util.AttributeSet;
 import com.even.mricheditor.ActionType;
 import com.even.mricheditor.R;
-import com.even.mricheditor.RichEditorAction;
 
 /**
  * The Interface of Action Button
@@ -17,7 +16,6 @@ import com.even.mricheditor.RichEditorAction;
 
 public class ActionImageView extends AppCompatImageView {
     private ActionType mActionType;
-    private RichEditorAction mRichEditorAction;
     private Context mContext;
 
     private boolean enabled = true;
@@ -57,14 +55,6 @@ public class ActionImageView extends AppCompatImageView {
         this.mActionType = mActionType;
     }
 
-    public RichEditorAction getRichEditorAction() {
-        return mRichEditorAction;
-    }
-
-    public void setRichEditorAction(RichEditorAction mRichEditorAction) {
-        this.mRichEditorAction = mRichEditorAction;
-    }
-
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
     }
@@ -79,124 +69,6 @@ public class ActionImageView extends AppCompatImageView {
 
     public boolean isActivated() {
         return activated;
-    }
-
-    public void command() {
-        //TODO RichEditorAction can not be null
-
-        switch (mActionType) {
-            case BOLD:
-                mRichEditorAction.bold();
-                break;
-            case ITALIC:
-                mRichEditorAction.italic();
-                break;
-            case UNDERLINE:
-                mRichEditorAction.underline();
-                break;
-            case SUBSCRIPT:
-                mRichEditorAction.subscript();
-                break;
-            case SUPERSCRIPT:
-                mRichEditorAction.superscript();
-                break;
-            case STRIKETHROUGH:
-                mRichEditorAction.strikethrough();
-                break;
-            case NORMAL:
-                mRichEditorAction.formatPara();
-                break;
-            case H1:
-                mRichEditorAction.formatH1();
-                break;
-            case H2:
-                mRichEditorAction.formatH2();
-                break;
-            case H3:
-                mRichEditorAction.formatH3();
-                break;
-            case H4:
-                mRichEditorAction.formatH4();
-                break;
-            case H5:
-                mRichEditorAction.formatH5();
-                break;
-            case H6:
-                mRichEditorAction.formatH6();
-                break;
-            case JUSTIFY_LEFT:
-                mRichEditorAction.justifyLeft();
-                break;
-            case JUSTIFY_CENTER:
-                mRichEditorAction.justifyCenter();
-                break;
-            case JUSTIFY_RIGHT:
-                mRichEditorAction.justifyRight();
-                break;
-            case JUSTIFY_FULL:
-                mRichEditorAction.justifyFull();
-                break;
-            case ORDERED:
-                mRichEditorAction.insertOrderedList();
-                break;
-            case UNORDERED:
-                mRichEditorAction.insertUnorderedList();
-                break;
-            case INDENT:
-                mRichEditorAction.indent();
-                break;
-            case OUTDENT:
-                mRichEditorAction.outdent();
-                break;
-            case LINE:
-                mRichEditorAction.insertHorizontalRule();
-                break;
-            case BLOCK_QUOTE:
-                mRichEditorAction.formatBlockquote();
-                break;
-            case BLOCK_CODE:
-                mRichEditorAction.formatBlockCode();
-                break;
-            case CODE_VIEW:
-                mRichEditorAction.codeView();
-                break;
-        }
-    }
-
-    public void command(String value) {
-
-        //case FAMILY:
-        //    mEditorMenuFragment.updateFontFamilyStates(value);
-        //    break;
-        //case SIZE:
-        //    mEditorMenuFragment.updateFontStates(ActionType.SIZE, Double.valueOf(value));
-        //    break;
-        //case FORE_COLOR:
-        //case BACK_COLOR:
-        //    mEditorMenuFragment.updateFontColorStates(type, value);
-        //    break;
-        //case LINE_HEIGHT:
-        //    mEditorMenuFragment.updateFontStates(ActionType.LINE_HEIGHT, Double.valueOf(value));
-        //    break;
-
-        switch (mActionType) {
-            case FAMILY:
-                break;
-            case SIZE:
-                break;
-            case LINE_HEIGHT:
-                break;
-            case FORE_COLOR:
-                break;
-            case BACK_COLOR:
-                break;
-            case IMAGE:
-                break;
-            case LINK:
-                break;
-            case TABLE:
-                break;
-        }
     }
 
     public void resetStatus() {
@@ -235,6 +107,7 @@ public class ActionImageView extends AppCompatImageView {
     }
 
     public void notifyFontStyleChange(final ActionType type, final String value) {
+
         post(new Runnable() {
             @Override public void run() {
                 switch (type) {
